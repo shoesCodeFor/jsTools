@@ -1,0 +1,33 @@
+<doctype! html>
+<html>
+<head>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+    
+    
+    
+</head>
+<body>
+    
+    <p>This is a paragraph</p>
+    <script>
+    
+        d3.select("p").text("helloWorld");
+        d3.select("body").append("p").style("color","blue").text("this is the new paragraph");
+        var canvas = d3.select("body")
+            .append("svg")
+            .attr("width", 500)
+            .attr("height", 500);
+        
+        var circle = canvas.append("circle")
+                     .attr("cx", 250)
+                     .attr("cy", 250)
+                     .attr("r", 50);
+                     .attr("fill", "red");
+    
+    </script>
+
+</body>
+
+
+
+<html>
