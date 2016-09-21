@@ -1,0 +1,31 @@
+<doctype! html>
+    
+<html>
+<head>
+    <script src="../handlebars-v4.0.5.js" type="application/javascript"></script>
+    <title>
+    Welcome to handlebars!
+    </title>
+    </head>    
+    
+    <body>
+    <div id="header"></div>
+        
+        
+    <script type="text/javascript">
+        
+    var myInfo =  "<p>My name is {{name}} and I am {{age}} years old</p>" ;
+    
+    var template = Handlebars.compile(myInfo);
+        
+    var data = template({name:"Schuyler", age:34});  
+        
+    document.getElementById("header").innerHTML += data;    
+    </script>    
+    </body>
+    
+    
+    
+    
+    
+</html>

@@ -1,7 +1,7 @@
 <doctype! html>
 <html>
 <head>
-<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="./d3.js"></script>
     
     
     
@@ -10,17 +10,23 @@
     
     
     <script>
-        var smallArray = [34, 55, 22, 60];
+        var smallArray = [30];
         var width = 500;
         var height = 500;
         
-        var widthScale = d3.scale.linear()
+        var widthScale = d3.scaleLinear()
                 .domain([0, 60])
                 .range([0, width]);
         
-        var color = d3.scale.linear()
-                .domain([0,60])
-                .range(["red", "blue"]);
+        var heatDial = d3.scaleLinear()
+                .domain([70,120])
+                .range(["yellow","red"]);
+        var balmDial = d3.scaleLinear()
+                .domain([50,71])
+                .range(["green","yellow"]);
+        var coolDial = d3.scaleLinear()
+                .domain([0,55])
+                .range(["blue","green"]);
                 
         var canvas = 
             d3.select("body")
@@ -28,20 +34,32 @@
             .attr("width", width)
             .attr("height", height);
         
-       var bars = canvas.selectAll("rect")
+       var bars = canvas.selectAll("circle")
                     .data(smallArray)
                     .enter()
-                        .append("rect")
-                        .attr("width", function(d){return widthScale(d);})
-                        .attr("height", 50)
-                        .attr("fill", "red")
-                        .attr("y", function(d, i){return i*100;})
-                        ;
+                        .append("circle")
+                        .attr("cx", 50)
+                        .attr("cy", 50)
+                        .attr("r", 50)
+                        
+                        
+                        .attr("fill", function(d){
+                                            if(d>70){return heatDial(d);}
+                                            else if(d<=70 && d>=50){return heatDial(d);}
+                                            else{return coolDial(d);}
+                        })
+                        .append("text")
+                        .attr("x", 20)
+                        .attr("y", 20)
+       ;
+                        
+                        
                               
     
                    
     </script>
-
+    <script src="temDials.js"></script>
+<div id="dial"></div>
 </body>
 
 
