@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+    <head>
+       
+        <title>Handlebars Tutorial</title>
+        <script src="handlebars-v4.0.5.js" lang="javasript" ype="text/javascript"></script>
+    
+    </head>    
+    <body>    
+        
+        
+        <!-- This will not compile correctly if the js runs before the div -->
+        <div id="mainContent"></div>
+        
+        <script type="text/javascript">
+        
+        var myInfoString = "<p>My name is {{name}} and I am {{age}} years old. </p>"
+        
+        var template = Handlebars.compile(myInfoString); 
+        
+        var data = template({name: "Schuyler", age: 34});
+            
+        document.getElementById("mainContent").innerHTML += data;    
+            
+        </script>
+        
+        
+        
+    </body>
+</html>

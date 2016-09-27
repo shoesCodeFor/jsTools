@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+    <head>
+       
+        <title>Handlebars Tutorial 2</title>
+        <script src="handlebars-v4.0.5.js" lang="javascript" ype="text/javascript"></script>
+    
+        <style>
+            .redText{color:red;}
+            .blueText{color:blue;}
+            .greenText{color:green;}
+        </style>
+    </head>    
+    <body>    
+        
+        
+        <!-- This will not compile correctly if the js runs before the div -->
+        <div id="mainContent"></div>
+        <div id="quoteAside"></div>
+        <script id="quote-template" type="text/x-handlebars-template">
+      
+            <h3>Favorite {{name}} Quotes</h3>
+            <ol>
+            {{#each quotes}}
+            <li>{{quote}}
+            {{/each}}
+           
+            </ol>
+
+            {{{einsteinBio}}} <br/> <br/>
+            {{makeLink "Einstein Wiki" "https://en.wikipedia.org/wiki/Albert_Einstein"}}
+        </script>
+        
+        <script type="text/javascript">
+        var quoteInfo = document.getElementById("quote-template").innerHTML;
+        
+           
+            
+        var template = Handlebars.compile(quoteInfo);
+            
+        Handlebars.registerHelper("makeLink", function(text, url){
+               text = Handlebars.Utils.escapeExpression(text);
+               url = Handlebars.Utils.escapeExpression(url);
+               var cleanedLink = '<a target=\" new\"href="' + url + '">'  + text + '</a>';
+               
+               return new Handlebars.SafeString(cleanedLink);
+           }); 
+            
+        var quoteData = template({
+                name:"Einstein",
+                quotes:[{
+                quote:"Imagination is more important than knowledge."         
+                 },
+                {quote:"The important thing is not to stop questioning. Curiosity has its own reason for existing."},
+                {quote:"Anyone who has never made a mistake has never tried anything new."}
+                ], // End of Quotes
+            einsteinBio: '<p><b>Albert Einstein</b> (/ˈaɪnstaɪn/;[4] German: [ˈalbɛɐ̯t ˈaɪnʃtaɪn] ( listen); 14 March 1879 – 18 April 1955) was a German-born theoretical physicist. He developed the general theory of relativity, one of the two pillars of modern physics (alongside quantum mechanics).[1][5]:274 Einstein\'s work is also known for its influence on the philosophy of science.[6][7] Einstein is best known in popular culture for his mass–energy equivalence formula E = mc2 (which has been dubbed \"the world\'s most famous equation\").[8] He received the 1921 Nobel Prize in Physics for his \"services to theoretical physics\", in particular his discovery of the law of the photoelectric effect, a pivotal step in the evolution of quantum theory.[9]<p>'
+        }); // End of template   
+            document.getElementById("quoteAside").innerHTML += quoteData;
+        </script>
+        
+        
+        
+        
+    </body>
+</html>

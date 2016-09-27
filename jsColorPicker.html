@@ -1,0 +1,112 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>Get the coordinates on canvas</title>
+    <meta charset="utf-8" />
+
+    <style type="text/css">
+
+      #canvas{background-color: #000;}
+
+    </style>
+
+    <script type="text/javascript">
+
+      document.addEventListener("DOMContentLoaded", init, false);
+      function RGBA(red,green,blue,alpha) {
+            this.red = red;
+            this.green = green;
+            this.blue = blue;
+            this.alpha = alpha;
+            this.getCSS = function() {
+                return "rgba("+this.red+","+this.green+","+this.blue+","+this.alpha+")";
+            }
+        }    
+      function init()
+      {
+        var canvas = document.getElementById("canvas");
+        canvas.addEventListener("mousedown", getPosition, false);
+      }
+
+      function getPosition(event)
+      {
+        var x = new Number();
+        var y = new Number();
+        var canvas = document.getElementById("canvas");
+
+        if (event.x != undefined && event.y != undefined)
+        {
+          x = event.x;
+          y = event.y;
+        }
+        else // Firefox method to get the position
+        {
+          x = event.clientX + document.body.scrollLeft +
+              document.documentElement.scrollLeft;
+          y = event.clientY + document.body.scrollTop +
+              document.documentElement.scrollTop;
+        }
+
+        x -= canvas.offsetLeft;
+        y -= canvas.offsetTop;
+        var r,g,b = 0; 
+        var color =  x/765;
+        color = color.toFixed(2);  
+        if(color <= .5){
+            if(color==0){
+              color = .001;        
+            }
+            
+            r = (.5 - color) * 2 * 255;
+            
+            g = (255-r);    
+            g = g.toFixed(0);
+            b = 0;
+        }
+        else{
+            color = color * -1;
+            g = (1 + color) * 2 * 255;
+            g = g.toFixed(0);
+            b = (255 - g);
+            b = b.toFixed(0);
+            r = 0;
+        }  
+        var opacity = y/510;  
+        opacity = opacity.toFixed(1);  
+        r = parseInt(r);
+        
+        
+        var coordinateString = "X: " + x + "<br/>" + "Y:" + y + "<br/>R:" + r;  
+        
+          
+          
+          
+          
+          
+        var colorString = new RGBA(r,g,b,opacity);
+        document.body.style.backgroundColor = 'rgb(' + r + ',' + g + ',' + b + ')';    
+        document.getElementById("coordinates").innerHTML = coordinateString;  
+          
+         
+        alert("x: " + x + "  y: " + y + " r: " + r + "g:" + g + "blue: " + b + "opacity :" + opacity);
+         
+      }
+
+    </script>
+
+  </head>
+
+  <body>
+    <div style="width:100%;">
+        <canvas id="canvas" width="765" height="510"></canvas>  
+      
+    </div>  
+    
+    <p id="coordinates"></p> 
+    <p id="TestArea">Change Me pLease</p>  
+    <script type="text/javascript">
+        document.getElementById("TestArea").style.backgroundColor = "\"" + colorString + "\"";   
+    </script>  
+  </body>
+</html>
