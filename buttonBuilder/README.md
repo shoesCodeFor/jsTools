@@ -20,7 +20,7 @@ With the code
 <button class="btn btn-primary test">It worked!!<span class="glyphicon glyphicon-ok"></span></button>
 `
 <br>
-Hit F12 to inspect the button element.  Glyphicons will not appear unless the Bootstrap css is not include in your document.
+Glyphicons will not appear unless the Bootstrap css is not include in your document.
 <p>
 <h4>Future Improvments:</h4>
 <ul>
