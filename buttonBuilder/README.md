@@ -6,14 +6,18 @@
 
 <h3>Example:</h3>
 ```javascript
-<script src="/your/path/buttonBuilder.js">buildButton('body', 'test', 'ok', 'It worked!!');</script>
+<script src="/your/path/buttonBuilder.js">buildButton('body', 'btn btn-primary test', 'ok', 'It worked!!');</script>
 ```
 
 
 
 <p>Will produce
 <br>
+<img src="https://dabuttonfactory.com/button.png?t=It+worked!!&f=Calibri-Bold&ts=24&tc=fff&tshs=1&tshc=000&hp=20&vp=8&c=5&bgt=gradient&bgc=3d85c6&ebgc=073763"/>
+With the code
+code
 <button class="test">It worked<span class="glyphicon glyphicon-ok"></span></button>
+code
 <br>
 Hit F12 to inspect the button element.  Glyphicons will not appear unless the Bootstrap css is not include in your document.
 <p>
