@@ -5,13 +5,13 @@
 <p>buttonBuilder JS can be included in a web document and called to create Bootstrap 3 buttons anywhere in your page complete with glyphicons.</p>
 
 <h3>Example:</h3>
-`
+'
 
 <script src="/your/path/buttonBuilder.js">
 buildButton('body', 'test', 'ok', 'It worked!!');
 
 </script>
-`
+'
 <p>Will produce
 <br>
 <button class="test">It worked<span class="glyphicon glyphicon-ok"></span></button>
