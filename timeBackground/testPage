@@ -1,0 +1,84 @@
+<doctype! html>
+<html>
+<head>
+<style type="text/css">
+    
+    /* Styles for Demo Clock */
+    body{
+        font-size: 2em;
+        background-color: black;
+    }
+    .timeBackground{
+        background-color: black;
+        z-index: 0;
+        color: beige;
+    }
+    .atMidnight{
+        background-color: #00142C;
+        background-color: rgba(0,20,44,1.0);
+        z-index: 1;
+        color: navajowhite;
+        text-shadow: 1px 1px black;
+    }
+    .earlyMorning{
+        background-color: darkblue;
+        background-color: rgba(38,171,124,.7);
+        z-index:1;    
+        color: cornsilk;
+        text-shadow: 1px 1px black;
+    }
+    .morning{
+        background-color: #4794DA;
+        background-color: rgba(71,148,241,.7);
+        z-index:1;    
+        color: black;
+        text-shadow: 1px 1px grey;
+    }
+    .daytime{
+        background-color: #A3D8FA;
+        background-color: rgba(163,215,250,.8);
+        z-index:1;    
+        color: black;
+        text-shadow: 1px 1px grey;
+    }
+    #demo{
+        
+    }
+    
+    
+</style>    
+    
+</head>    
+<body >
+    <div id="demo" class="timeBackground daytime">
+    
+    </div>
+    <div id="demo2">
+    
+    </div>
+    
+</body>    
+<script type="text/javascript">
+    function timeBackground(){
+        var colorString ="";
+        var timeout = 1000;
+        var action = function() {
+            // The interval begins
+            
+            // Time variables
+            var rightNow = new Date();
+            var hour = rightNow.getHours();
+            var minutes = rightNow.getMinutes();
+            var seconds = rightNow.getSeconds();
+            
+            // Print the time to the page
+            document.querySelector('#demo').innerHTML = "<p>" +hour + ":" + minutes + "." + seconds + "</p>";    
+        };
+        setInterval(action, timeout);
+    }
+
+    timeBackground();
+    
+    
+</script>
+</html>
