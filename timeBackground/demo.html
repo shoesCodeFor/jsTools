@@ -1,0 +1,28 @@
+function getDaylight(country, state, city){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var locale = JSON.parse(this.responseText);
+            document.getElementById("demo2").innerHTML += this.responseText;
+           }
+        };
+        xhttp.open("GET", "http://api.wunderground.com/api/0fe12907df8cbe98/astronomy/q/"+ country + "/" + state + "/" + city +".json" , true);
+        xhttp.send();
+        
+    }
+
+    
+    function getCity() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var locale = JSON.parse(this.responseText);
+            document.getElementById("demo2").innerHTML += this.responseText;
+            getDaylight(locale.location.country, locale.location.state, locale.location.city);
+           }
+        };
+        xhttp.open("GET", "http://api.wunderground.com/api/0fe12907df8cbe98/geolookup/q/autoip.json" , true);
+        xhttp.send();
+    }
+    
+    //getCity();
