@@ -1,4 +1,4 @@
-<doctype! html>
+<!doctype html>
 <html>
 <head>
 <style type="text/css">
@@ -7,6 +7,7 @@
     body{
         font-size: 2em;
         background-color: black;
+        color: white;
     }
     .timeBackground{
         background-color: black;
@@ -36,10 +37,23 @@
     }
     .daytime{
         background-color: #A3D8FA;
+        
         background-color: rgba(163,215,250,.8);
         z-index:1;    
         color: black;
         text-shadow: 1px 1px grey;
+    }
+    .sunset{
+        background-color: #FF7741;
+        background-color: rgba(244, 115, 75, 1);
+    }
+    .evening{
+        
+        background-color: #675178;
+        background-color: rgba(107,80,121,.8);
+        z-index:1;    
+        color: black;
+        text-shadow: 1px 1px grey;    
     }
     #demo{
         
@@ -50,35 +64,137 @@
     
 </head>    
 <body >
-    <div id="demo" class="timeBackground daytime">
+    <div id="demo" class="timeBackground">
+    <p>Manually Set a Time to watch the background change <form name="pushClock"><input name="pushTime" id="manual" type="number" min="1" max="24"/>
+    <button onclick="">Push Manual Time</button>    
+    </form></p>
+    </div>
+    <div id="demo2" class="timeBackground">
     
     </div>
-    <div id="demo2">
-    
-    </div>
-    
+    <div id="demo3" class="pushMe">Your Selected Background</div>
 </body>    
 <script type="text/javascript">
-    function timeBackground(){
-        var colorString ="";
+    
+    // New style for ES6
+    function timeBackground(selectorClass="", clock = false, target = ""){
+        // The new/old background, the new/old font color and optional clock
+        var bgString ="";
+        var oldBgString = "";
+        var textString="";
+        
+        // The clock refresh (if you're not using the clock you can set to 30000 for 2x hourly)
         var timeout = 1000;
         var action = function() {
+            
             // The interval begins
             
             // Time variables
             var rightNow = new Date();
             var hour = rightNow.getHours();
             var minutes = rightNow.getMinutes();
-            var seconds = rightNow.getSeconds();
+            var seconds = rightNow.getSeconds();   
             
+            // What color scheme should we use?
+            if(hour < 4 || hour > 21){
+                bgString = "atMidnight";
+                oldBgString = "evening";
+            }
+            else if(hour >= 4 && hour < 7){
+                bgString = "earlyMorning";
+                oldBgString = "atMidnight";
+            }
+            else if(hour >=7 && hour < 17){
+                bgString = "daytime";
+                oldBgString = "earlyMorning";
+            }
+            else if(hour >=17 && hour < 18){
+                bgString = "sunset";
+                oldBgString = "daytime";
+            }
+            else if(hour >= 18 && hour <= 21){
+                bgString = "evening";
+                oldBgString = "sunset";
+            }
+            
+            // Lets change the old class for the new
+            swapClass(selectorClass, bgString, oldBgString);
+            
+            
+            if(clock == true){
             // Print the time to the page
-            document.querySelector('#demo').innerHTML = "<p>" +hour + ":" + minutes + "." + seconds + "</p>";    
+            var clockDiv = document.querySelector(target);
+            clockDiv.classList.add(bgString);    
+            clockDiv.innerHTML = "<p>" +hour + ":" + minutes + "." + seconds + "</p>";
+            
+            } 
+            
         };
+        // Trigger neverending loop
         setInterval(action, timeout);
     }
-
-    timeBackground();
     
+    function swapClass(selectorClass, updated, old){
+        // Select the divs for our widget
+        var selectedElement = document.querySelector(selectorClass);
+        selectedElement.classList.add(updated);
+        selectedElement.classList.remove(old);
+        
+    }
+    
+    // Push mode for demo
+    function timeBGPush(selectorClass, target = ""){
+        // The new/old background, the new/old font color and optional clock
+        var bgString ="";
+        var oldBgString = "";
+        var textString="";
+        
+        // The clock refresh (if you're not using the clock you can set to 30000 for 2x hourly)
+    
+            
+            // The interval begins
+            
+            // Time variables
+            var hour =  document.getElementById("manual").onchange.value;
+            while(1){
+            // What color scheme should we use?
+            if(hour < 4 || hour > 21){
+                bgString = "atMidnight";
+                oldBgString = "evening";
+            }
+            else if(hour >= 4 && hour < 7){
+                bgString = "earlyMorning";
+                oldBgString = "atMidnight";
+            }
+            else if(hour >=7 && hour < 17){
+                bgString = "daytime";
+                oldBgString = "earlyMorning";
+            }
+            else if(hour >=17 && hour < 18){
+                bgString = "sunset";
+                oldBgString = "daytime";
+            }
+            else if(hour >= 18 && hour <= 21){
+                bgString = "evening";
+                oldBgString = "sunset";
+            }
+            
+            // Lets change the old class for the new
+            swapClass(selectorClass, bgString, oldBgString);
+            
+            
+            }
+            
+      
+    }
+    
+    
+    
+    
+    
+    timeBackground(".timeBackground", true, "#demo2");
+    
+    timeBGPush( '.pushMe' , '#demo3');
     
 </script>
 </html>
