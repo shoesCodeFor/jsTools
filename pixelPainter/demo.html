@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8"
+
+    <!-- Intro to JS @ Galvanize - Pixel Painter JS Program -->    
+    <title>
+    Pixel Painter Tutorial
+    </title>    
+    <style>
+        table{
+            border-collapse: collapse;
+        }
+        td {
+            height: 10px;
+            width: 10px;
+            padding: 0;
+            margin: 0;
+            border: 1px solid black;
+            
+            
+        }
+            
+    </style>
+
+    </head>    
+    <body>
+        <h1>Pixel Painter</h1>
+        <h2>Color Palette: Please click a color to begin painting with it.</h2>
+        <table id="palette">
+           
+        </table>
+        
+        
+        <h3>Draw</h3>
+        <table id="canvas">
+        
+        </table>
+        
+    </body>    
+    
+    
+    <script type="text/javascript">
+        // Create a default color
+        var paintColor = 'black';
+        
+        //  Canvas height = x, width = y
+       function drawSquares(){
+            var table = document.querySelector("#canvas");
+            var x = document.documentElement.clientWidth;
+            var y = document.documentElement.clientHeight;
+            for(let i = 0; i < y; i+=10){
+                var row = document.createElement('tr');
+                table.appendChild(row);
+                for(let j = 0; j < x; j+=10){
+                    var cell = document.createElement('td');
+                    cell.addEventListener('click', paint);
+                    row.appendChild(cell);
+                }
+            }
+        }
+    
+        // Add background color on click event
+        function paint(event){
+            event.target.style.backgroundColor = paintColor;
+        }
+        
+        // Make the colors clickable
+        function addPaletteEvent(){
+            var palette = document.querySelector("#palette");
+            var colors = palette.querySelectorAll('td');
+            for(let i = 0; i < colors.length; i++){
+                colors[i].addEventListener('click', selectColor);
+            }
+        }
+        
+        // Change the selected color variable
+        function selectColor(event){
+            paintColor = event.target.style.backgroundColor;
+        }
+        
+        function randomColorGenerator(){
+                var rgbString = "rgb(";
+                var red, green, blue = 0;
+                red = getRandomInt(0,255);
+                green = getRandomInt(0,255);
+                blue = getRandomInt(0,255);
+                rgbString += red + ", " + green + ", " + blue + ");";
+                return rgbString;
+        }
+        function getRandomInt(min, max) {
+          min = Math.ceil(min);
+          max = Math.floor(max);
+          return Math.floor(Math.random() * (max - min)) + min;
+        }
+        
+        
+        var colorList = document.createElement('tr');
+        var palette = document.getElementById("palette");
+        palette.appendChild(colorList);
+        
+        
+        
+        for(let i =0; i < 20; i++){
+            colorList.innerHTML += "<td style='background-color:" + randomColorGenerator() + "'></td>";
+        }
+        // Trigger functions
+        drawSquares(); 
+        addPaletteEvent();
+    
+    </script>
+    
+    
+</html>

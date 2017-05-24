@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html>
 <head>
@@ -65,9 +66,13 @@
 </head>    
 <body >
     <div id="demo" class="timeBackground">
+
     <p>Manually Set a Time to watch the background change <form name="pushClock"><input name="pushTime" id="manual" type="number" min="1" max="24"/>
     <button onclick="">Push Manual Time</button>    
     </form></p>
+
+    <p>?</p>
+
     </div>
     <div id="demo2" class="timeBackground">
     
@@ -76,8 +81,11 @@
 </body>    
 <script type="text/javascript">
     
-    // New style for ES6
-    function timeBackground(selectorClass="", clock = false, target = ""){
+    
+
+
+    function timeBackground(clock = false, target = ""){
+
         // The new/old background, the new/old font color and optional clock
         var bgString ="";
         var oldBgString = "";
@@ -93,7 +101,7 @@
             var rightNow = new Date();
             var hour = rightNow.getHours();
             var minutes = rightNow.getMinutes();
-            var seconds = rightNow.getSeconds();   
+            var seconds = rightNow.getSeconds(); 
             
             // What color scheme should we use?
             if(hour < 4 || hour > 21){
@@ -120,7 +128,34 @@
             // Lets change the old class for the new
             swapClass(selectorClass, bgString, oldBgString);
             
+
             
+            // What color scheme should we use?
+            if(hour < 4 || hour > 21){
+                bgString = "atMidnight";
+                oldBgString = "evening";
+            }
+            else if(hour >= 4 && hour < 7){
+                bgString = "earlyMorning";
+                oldBgString = "atMidnight";
+            }
+            else if(hour >=7 && hour < 17){
+                bgString = "daytime";
+                oldBgString = "earlyMorning";
+            }
+            else if(hour >=17 && hour < 18){
+                bgString = "sunset";
+                oldBgString = "daytime";
+            }
+            else if(hour >= 18 && hour <= 21){
+                bgString = "evening";
+                oldBgString = "sunset";
+            }
+            
+            // Lets change the old class for the new
+            swapClass(bgString, oldBgString);
+            
+
             if(clock == true){
             // Print the time to the page
             var clockDiv = document.querySelector(target);
@@ -133,6 +168,18 @@
         // Trigger neverending loop
         setInterval(action, timeout);
     }
+
+    
+    function swapClass(updated, old){
+        // Select the divs for our widget
+        var selectedElement = document.querySelector(".timeBackground");
+        selectedElement.classList.add(updated);
+        selectedElement.classList.remove(old);
+        
+    }
+    
+    timeBackground(true, "#demo2");
+
     
     function swapClass(selectorClass, updated, old){
         // Select the divs for our widget
